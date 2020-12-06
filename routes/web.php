@@ -35,12 +35,16 @@ Route::group(['prefix' => 'admin-auth','namespace'=>'Admin\Auth'], function () {
 });
 
 Route::group(['prefix' => 'laravel-filemanager'], function () { 
-    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show'); 
-    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload'); 
+    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show')->name('laravel.filemanager'); 
+    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload')->name('laravel.filemanager.upload'); 
 });
+
+
+
 
 Route::group(['prefix' => 'api-admin','namespace'=>'Admin','middleware' => 'check_admin_login'], function () {
     Route::get('','AdminController@index')->name('get.admin.home');
+
 
     Route::group(['prefix' => 'category'], function(){
         Route::get('','AdminCategoryController@index')->name('admin.category.index');
@@ -51,7 +55,6 @@ Route::group(['prefix' => 'api-admin','namespace'=>'Admin','middleware' => 'chec
         Route::post('update/{id}','AdminCategoryController@update');
 
         Route::get('active/{id}','AdminCategoryController@active')->name('admin.category.active');
-        Route::get('hot/{id}','AdminCategoryController@hot')->name('admin.category.hot');
         Route::get('delete/{id}','AdminCategoryController@delete')->name('admin.category.delete');
 
     });
@@ -65,6 +68,18 @@ Route::group(['prefix' => 'api-admin','namespace'=>'Admin','middleware' => 'chec
         Route::post('update/{id}','AdminDistributorController@update');
 
         Route::get('delete/{id}','AdminDistributorController@delete')->name('admin.distributor.delete');
+
+    });
+
+    Route::group(['prefix' => 'distributor-seconhand'], function(){
+        Route::get('','AdminDistributorSeconhandController@index')->name('admin.distributorseconhand.index');
+        Route::get('create','AdminDistributorSeconhandController@create')->name('admin.distributorseconhand.create');
+        Route::post('create','AdminDistributorSeconhandController@store')->name('admin.distributorseconhand.store');
+
+        Route::get('update/{id}','AdminDistributorSeconhandController@edit')->name('admin.distributorseconhand.update');
+        Route::post('update/{id}','AdminDistributorSeconhandController@update');
+
+        Route::get('delete/{id}','AdminDistributorSeconhandController@delete')->name('admin.distributorseconhand.delete');
 
     });
 
@@ -116,6 +131,33 @@ Route::group(['prefix' => 'api-admin','namespace'=>'Admin','middleware' => 'chec
         Route::get('active/{id}','AdminProductController@active')->name('admin.product.active');
         Route::get('hot/{id}','AdminProductController@hot')->name('admin.product.hot');
         Route::get('delete/{id}','AdminProductController@delete')->name('admin.product.delete');
+        Route::post('image-upload', 'AdminProductController@imageUpload')->name('admin.image.upload');
+    });
+
+    Route::group(['prefix' => 'seconhand-product'], function(){
+        Route::get('','AdminProductSeconhandController@index')->name('admin.seconhandproduct.index');
+        Route::get('create','AdminProductSeconhandController@create')->name('admin.seconhandproduct.create');
+        Route::post('create','AdminProductSeconhandController@store')->name('admin.seconhandproduct.store');;
+
+        Route::get('update/{id}','AdminProductSeconhandController@edit')->name('admin.seconhandproduct.update');
+        Route::post('update/{id}','AdminProductSeconhandController@update');
+        
+        Route::get('active/{id}','AdminProductSeconhandController@active')->name('admin.seconhandproduct.active');
+        Route::get('hot/{id}','AdminProductSeconhandController@hot')->name('admin.seconhandproduct.hot');
+        Route::get('delete/{id}','AdminProductSeconhandController@delete')->name('admin.seconhandproduct.delete');
+    });
+
+    Route::group(['prefix' => 'consignment-product'], function(){
+        Route::get('','AdminDistributorConsignmentController@index')->name('admin.consignmentproduct.index');
+        Route::get('create','AdminDistributorConsignmentController@create')->name('admin.consignmentproduct.create');
+        Route::post('create','AdminDistributorConsignmentController@store')->name('admin.consignmentproduct.store');;
+
+        Route::get('update/{id}','AdminDistributorConsignmentController@edit')->name('admin.consignmentproduct.update');
+        Route::post('update/{id}','AdminDistributorConsignmentController@update');
+        
+        Route::get('active/{id}','AdminDistributorConsignmentController@active')->name('admin.consignmentproduct.active');
+        Route::get('hot/{id}','AdminDistributorConsignmentController@hot')->name('admin.consignmentproduct.hot');
+        Route::get('delete/{id}','AdminDistributorConsignmentController@delete')->name('admin.consignmentproduct.delete');
     });
 
     Route::group(['prefix' => 'user'], function(){
@@ -125,6 +167,22 @@ Route::group(['prefix' => 'api-admin','namespace'=>'Admin','middleware' => 'chec
         Route::post('update/{id}','UserController@update');
 
         Route::get('delete/{id}','UserController@delete')->name('admin.user.delete');
+
+    });
+
+    Route::group(['prefix' => 'employee'], function() {
+        Route::get('', 'AdminEmployeeController@index')->name('admin.employee.index');
+        Route::get('create', 'AdminEmployeeController@create')->name('admin.employee.create');
+        Route::post('create', 'AdminEmployeeController@store')->name('admin.employee.store');
+    });
+
+    Route::group(['prefix' => 'sender'], function(){
+        Route::get('','AdminSenderController@index')->name('admin.sender.index');
+
+        Route::get('update/{id}','AdminSenderController@edit')->name('admin.sender.update');
+        Route::post('update/{id}','AdminSenderController@update');
+
+        Route::get('delete/{id}','AdminSenderController@delete')->name('admin.sender.delete');
 
     });
 
@@ -175,45 +233,3 @@ Route::group(['prefix' => 'api-admin','namespace'=>'Admin','middleware' => 'chec
 
 
 
-Route::group(['namespace'=>'Main'], function () {
-    Route::get('','HomeController@index')->name('get.home');
-
-    Route::get('danh-muc/{slug}','CategoryController@index')->name('get.category.list');
-
-    Route::get('search/{slug}/key={key}','CategoryController@index')->name('get.category.search.list');
-
-    Route::get('san-pham','ProductController@index')->name('get.product.list');
-
-    Route::get('san-pham/{slug}','ProductDetailController@index')->name('get.product.detail');
-
-    Route::get('gio-hang','ShoppingCartController@index')->name('get.shopping.list');
-
-    Route::get('bai-viet','BlogController@index')->name('get.blog.home');
-    Route::get('bai-viet/{slug}','ArticleDetailController@index')->name('get.blog.detail');
-
-    Route::prefix('shopping')->group(function () {
-        Route::get('add/{id}','ShoppingCartController@add')->name('get.shopping.add');
-
-        Route::get('delete/{id}','ShoppingCartController@delete')->name('get.shopping.delete');
-
-        Route::get('update/{id}','ShoppingCartController@update')->name('ajax_get.shopping.update');
-
-        Route::post('pay','ShoppingCartController@postPay')->name('post.shopping.pay');
-    });
-
-    Route::get('don-hang/{id}','TransactionController@index')->name('get.transaction');
-
-    Route::get('gioi-thieu','AboutUsController@index')->name('get.about');
-
-    Route::get('404','HomeController@error404')->name('get.404');
-    
-});
-
-Route::group(['prefix' => 'account','namespace'=>'User'], function () {
-    Route::get('/{id}','UserDashboardController@dashboard')->name('get.user.dashboard');
-
-    Route::post('/{id}','UserDashboardController@updateInfo');
-});
-// Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');

@@ -47,15 +47,6 @@ class AdminCategoryController extends AdminController
         return redirect()->back()->with('success','Cập Nhật Thành Công');;
     }
 
-    public function hot($id)
-    {
-        $category = Category::find($id);
-        $category->c_hot =! $category->c_hot;
-        $category->save();
-
-        return redirect()->back()->with('success','Cập Nhật Thành Công');;
-    }
-
     public function edit($id)
     {
         $category = Category::find($id);

@@ -33,23 +33,52 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{route('admin.distributor.index')}}" class="nav-link">
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-plus"></i>
                     <p>
-                        Quản Lý Nhà Phân Phối
-                    
+                        Phân Loại Nhà Phân Phối
+                    <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview" style="margin-left: 10px">
+                    <li class="nav-item">
+                        <a href="{{route('admin.distributor.index')}}" class="nav-link">
+                            <p>Nhà Phân Phối Hàng Mới</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.distributorseconhand.index')}}" class="nav-link">
+                            <p>Nhà Phân Phối Seconhand</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item">
-                <a href="{{route('admin.product.index')}}" class="nav-link">
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-plus"></i>
                     <p>
-                        Quản Lý Sản Phẩm
-                    
+                        Phân Loại Sản Phẩm
+                    <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview" style="margin-left: 10px">
+                    <li class="nav-item">
+                        <a href="{{route('admin.product.index')}}" class="nav-link">
+                            <p>Sản phẩm mới</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.seconhandproduct.index')}}" class="nav-link">
+                            <p>Sản Phẩm Seconhand</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{route('admin.consignmentproduct.index')}}" class="nav-link">
+                            <p>Sản Phẩm Ký Gửi</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a href="{{route('admin.keyword.index')}}" class="nav-link">
@@ -64,42 +93,37 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-plus"></i>
                     <p>
-                        Phân Loại Sản Phẩm
+                        Phân Loại Người Dùng
                     <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview" style="margin-left: 10px">
                     <li class="nav-item">
-                    <a href="{{route('admin.group_attribute.index')}}" class="nav-link">
-                        <i class="far fas fa-plus"></i>
-                        <p>Quản Lý Nhóm Thuộc Tính</p>
-                    </a>
+                        <a href="{{route('admin.employee.index')}}" class="nav-link">
+                            <p>Quản Lý Nhân Viên</p>
+                        </a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.attribute.index')}}" class="nav-link">
-                        <i class="far fas fa-plus"></i>
-                        <p>Quản Lý Thuộc Tính</p>
-                    </a>
+                        <a href="{{route('admin.user.index')}}" class="nav-link">
+                            <p>Quản Lý Khách Hàng</p>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{route('admin.sender.index')}}" class="nav-link">
+                            <p>Quản Lý Người Ký Gửi</p>
+                        </a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item has-treeview">
-                <a href="{{route('admin.user.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-plus""></i>
-                    <p>
-                    Quản Lý Thành Viên
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item has-treeview">
                 <a href="{{route('admin.transaction.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-plus""></i>
+                    <i class="nav-icon fas fa-plus"></i>
                     <p>
                     Quản Lý Đơn Hàng
                     </p>
                 </a>
             </li>
-            <li class="nav-item has-treeview">
+            {{-- <li class="nav-item has-treeview">
                 <a href="{{route('admin.menu.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-plus"></i>
                     <p>
@@ -114,7 +138,7 @@
                     Quản Lý Tin Tức
                     </p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
         </nav>
         <!-- /.sidebar-menu -->

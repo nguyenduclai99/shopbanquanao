@@ -62,7 +62,7 @@
 
             if (isset($explode[0])) {
                 $time = str_replace('_', '/', $explode[0]);
-                return '/shopmaytinh/public/uploads/'.$folder.'/' . date('Y/m/d', strtotime($time)) . '/' . $image;
+                return env('APP_URL').'/uploads/'.$folder.'/' . date('Y/m/d', strtotime($time)) . '/' . $image;
             }
         }
     }

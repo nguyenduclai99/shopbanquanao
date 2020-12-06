@@ -40,32 +40,22 @@
                                 <tr class="text-center">
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Avatar</th>
                                     <th>Status</th>
-                                    <th>Hot</th>
                                     <th>Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (isset($categories))
-                                    @foreach ($categories as $data)
+                                    @foreach ($categories as $k => $data)
                                     <tr>
-                                        <td>{{$data->id}}</td>
+                                        <td>{{$k + 1}}</td>
                                         <td>{{$data->c_name}}</td>
-                                        <td><img src="{{$data->c_name}}" alt="" width="80px" height="80px"></td>
                                         <td>
                                             @if ($data->c_status == 1)
                                                 <a href="{{route('admin.category.active',$data->id)}}" class="btn btn-primary btn-sm">Show</a>
                                             @else
                                                 <a href="{{route('admin.category.active',$data->id)}}" class="btn btn-secondary btn-sm">Hide</a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($data->c_hot == 1)
-                                                <a href="{{route('admin.category.hot',$data->id)}}" class="btn btn-success btn-sm" >Active</a>
-                                            @else
-                                                <a href="{{route('admin.category.hot',$data->id)}}" class="btn btn-secondary btn-sm">None</a>
                                             @endif
                                         </td>
                                         <td>{{$data->created_at}}</td>

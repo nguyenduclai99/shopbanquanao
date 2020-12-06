@@ -13,12 +13,12 @@ use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\Keyword;
 
-class AdminProductController extends Controller
+class AdminProductSeconhandController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::with('category:id,c_name','distributor:id,d_name')->where('pro_type', 0);
-
+        $products = Product::with('category:id,c_name','distributor:id,d_name')->where('pro_type', 1);
+        
         if($name = $request->name) {
             $products->where('pro_name','like','%'.$name.'%');
         }
@@ -39,23 +39,23 @@ class AdminProductController extends Controller
         $products = $products->orderByDesc('id')->get();
         
         $categories = Category::all();
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::where('d_type', 1)->get();
 
         $viewData = [
             'products' => $products,
             'categories' => $categories,
             'distributor' => $distributor
         ];
-        return view('admin.product.index', $viewData);
+        return view('admin.seconhandproduct.index', $viewData);
     }
 
     public function create()
     {
         $categories = Category::all();
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::where('d_type', 1)->get();
         $keywords = Keyword::all();
 
-        return view('admin.product.create',compact('categories','keywords','distributor'));
+        return view('admin.seconhandproduct.create',compact('categories','keywords','distributor'));
     }
 
     public function store(AdminRequestProduct $request)
@@ -63,6 +63,7 @@ class AdminProductController extends Controller
         $data = $request->except('_token','pro_avatar','attribute','keywords');
         
         $data['pro_slug']     = Str::slug($request->pro_name);
+        $data['pro_type']     = 1;
         $data['created_at']   = Carbon::now();
         
         if ($request->pro_avatar) {
@@ -81,7 +82,7 @@ class AdminProductController extends Controller
             $this->syncAttribute($request->attribute, $id);
             $this->syncKeyword($request->keywords, $id);
         }
-        return redirect()->route('admin.product.index')->with('success','Thêm Mới Sản Phẩm Thành Công');
+        return redirect()->route('admin.seconhandproduct.index')->with('success','Thêm Mới Sản Phẩm Thành Công');
     }
 
     public function active($id)
@@ -105,7 +106,7 @@ class AdminProductController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::where('d_type', 1)->get();
         $product = Product::findOrFail($id);
         $keywords = Keyword::all();
 
@@ -124,7 +125,7 @@ class AdminProductController extends Controller
             'distributor' => $distributor
         ];
 
-        return view('admin.product.update', $viewData);
+        return view('admin.seconhandproduct.update', $viewData);
     }
 
     public function update(AdminRequestProduct $request, $id)
@@ -146,7 +147,7 @@ class AdminProductController extends Controller
             $this->syncKeyword($request->keywords, $id);
         }
 
-        return redirect()->route('admin.product.index')->with('success','Cập Nhật Thành Công');
+        return redirect()->route('admin.seconhandproduct.index')->with('success','Cập Nhật Thành Công');
     }
 
     public function delete($id)
@@ -190,35 +191,6 @@ class AdminProductController extends Controller
             \DB::table('product_attributes')->where('pa_product_id',$idProduct)->delete();
             \DB::table('product_attributes')->insert($datas);
             //}
-        }
-    }
-
-    public function imageUpload (Request $request) 
-    {
-        if($request->hasFile('upload')) {
-            //get filename with extension
-            $filenamewithextension = $request->file('upload')->getClientOriginalName();
-       
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-       
-            //get file extension
-            $extension = $request->file('upload')->getClientOriginalExtension();
-       
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-       
-            //Upload File
-            $request->file('upload')->storeAs('public/image', $filenametostore);
-     
-            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/image/'.$filenametostore); 
-            $msg = 'Image successfully uploaded'; 
-            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-              
-            // Render HTML output 
-            @header('Content-type: text/html; charset=utf-8'); 
-            echo $re;
         }
     }
 }

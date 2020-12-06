@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh Sách Sản Phẩm</h1>
+                    <h1>Danh Sách Sản Phẩm Hàng Ký Gửi</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -87,9 +87,9 @@
                                 </div>
                             </div>
                         </form>
-                        <a class="btn btn-primary btn-sm" href="{{route('admin.product.create')}}">
+                        {{-- <a class="btn btn-primary btn-sm" href="{{route('admin.product.create')}}">
                             <i class="fas fa-plus"></i> Thêm Mới
-                        </a>
+                        </a> --}}
                     </div>
                     </div>
                     <div class="card-body">

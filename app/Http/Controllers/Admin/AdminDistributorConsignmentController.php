@@ -11,20 +11,20 @@ use Illuminate\Support\Str;
 use App\Models\Distributor;
 
 
-class AdminDistributorController extends AdminController
+class AdminDistributorConsignmentController extends AdminController
 {
     public function index()
     {
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::where('d_type', 2)->get();
         $viewData = [
             'distributor' => $distributor
         ];
-        return view('admin.distributor.index', $viewData);
+        return view('admin.consignmentproduct.index', $viewData);
     }
 
     public function create()
     {
-        return view('admin.distributor.create');
+        return view('admin.consignmentproduct.create');
     }
 
     public function store(AdminRequestDistributor $request)
@@ -32,10 +32,10 @@ class AdminDistributorController extends AdminController
         $data = $request->except('_token');
         $data['d_slug'] = Str::slug($request->d_name);
         $data['created_at'] = Carbon::now();
-        $data['d_type'] = 0;
+        $data['d_type'] = 2;
         $id = Distributor::insertGetID($data);
 
-        return redirect()->route('admin.distributor.index')->with('success','Thêm Mới Nhà phân phối Thành Công');
+        return redirect()->route('admin.consignmentproduct.index')->with('success','Thêm Mới Nhà phân phối Thành Công');
     }
 
 
@@ -43,7 +43,7 @@ class AdminDistributorController extends AdminController
     {
         $distributor = Distributor::find($id);
         
-        return view('admin.distributor.update', compact('distributor'));
+        return view('admin.consignmentproduct.update', compact('distributor'));
     }
 
     public function update(AdminRequestDistributor $request, $id)
@@ -52,10 +52,10 @@ class AdminDistributorController extends AdminController
         $data               = $request->except('_token');
         $data['d_slug']     = Str::slug($request->d_name);
         $data['updated_at'] = Carbon::now(); 
-        $data['d_type'] = 0;
+        $data['d_type'] = 2;
 
         $distributor->update($data);
-        return redirect()->route('admin.distributor.index')->with('success','Cập Nhật Thành Công');
+        return redirect()->route('admin.consignmentproduct.index')->with('success','Cập Nhật Thành Công');
     }
 
     public function delete($id)

@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('get.admin.home')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.product.index')}}">Sản Phẩm</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.seconhandproduct.index')}}">Sản Phẩm</a></li>
                         <li class="breadcrumb-item active">Danh Sách</li>
                     </ol>
                 </div>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                         </form>
-                        <a class="btn btn-primary btn-sm" href="{{route('admin.product.create')}}">
+                        <a class="btn btn-primary btn-sm" href="{{route('admin.seconhandproduct.create')}}">
                             <i class="fas fa-plus"></i> Thêm Mới
                         </a>
                     </div>
@@ -101,7 +101,7 @@
                                     <th style="width:10%;">Nhà Phân Phối</th>
                                     <th>Danh Mục</th>
                                     <th>Avatar</th>
-                                    <th>Giá tiền</th>
+                                    <th>Giá</th>
                                     <th>Số Lượng</th>
                                     <th>Trạng thái</th>
                                     <th>Hot</th>
@@ -135,22 +135,22 @@
                                         <td>{{$data->pro_quantity}}</td>
                                         <td>
                                             @if ($data->pro_active == 1)
-                                                <a href="{{route('admin.product.active',$data->id)}}" class="btn btn-primary btn-sm">Show</a>
+                                                <a href="{{route('admin.seconhandproduct.active',$data->id)}}" class="btn btn-primary btn-sm">Show</a>
                                             @else
-                                                <a href="{{route('admin.product.active',$data->id)}}" class="btn btn-secondary btn-sm">Hide</a>
+                                                <a href="{{route('admin.seconhandproduct.active',$data->id)}}" class="btn btn-secondary btn-sm">Hide</a>
                                             @endif
                                         </td>
                                         <td>
                                             @if ($data->pro_hot == 1)
-                                                <a href="{{route('admin.product.hot',$data->id)}}" class="btn btn-success btn-sm" >Active</a>
+                                                <a href="{{route('admin.seconhandproduct.hot',$data->id)}}" class="btn btn-success btn-sm" >Active</a>
                                             @else
-                                                <a href="{{route('admin.product.hot',$data->id)}}" class="btn btn-secondary btn-sm">None</a>
+                                                <a href="{{route('admin.seconhandproduct.hot',$data->id)}}" class="btn btn-secondary btn-sm">None</a>
                                             @endif
                                         </td>
                                         <td>{{$data->created_at}}</td>
                                         <td>
-                                            <a href="{{route('admin.product.update',$data->id)}}" class="btn btn-info btn-sm editProduct"><i class="fas fa-pencil-alt"></i> Sửa </a>
-                                            <a href="{{route('admin.product.delete',$data->id)}}" class="btn btn-danger btn-sm deleteProduct"><i class="fas fa-pencil-alt"></i> Xóa</a>
+                                            <a href="{{route('admin.seconhandproduct.update',$data->id)}}" class="btn btn-info btn-sm editProduct"><i class="fas fa-pencil-alt"></i> Sửa</a>
+                                            <a href="{{route('admin.seconhandproduct.delete',$data->id)}}" class="btn btn-danger btn-sm deleteProduct"><i class="fas fa-pencil-alt"></i> Xóa</a>
                                         </td>
                                     </tr>
                                     @endforeach

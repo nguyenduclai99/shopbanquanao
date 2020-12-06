@@ -26,7 +26,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form role="form" method="POST" action="{{route('admin.product.store')}}" enctype="multipart/form-data">
+        <form role="form" method="POST" action="{{route('admin.seconhandproduct.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-7">
@@ -64,7 +64,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="pro_quantity">Số Lượng <span class="text-danger">(*)</span></label>
-                                        <input type="number" name="pro_quantity" class="form-control" value="{{old('pro_quantity')}}">
+                                        <input type="number" name="pro_quantity" class="form-control" value="1">
                                     </div>
                                     @if ($errors->first('pro_quantity'))
                                         <span class="text-danger">{{ $errors->first('pro_quantity') }}</span> 
@@ -186,7 +186,7 @@
                 <div class="col-12">
                     <div class="modal-footer">
                         <div class="mx-auto">
-                            <a type="button" class="btn btn-danger" href="{{route('admin.product.index')}}">Hủy</a>
+                            <a type="button" class="btn btn-danger" href="{{route('admin.seconhandproduct.index')}}">Hủy</a>
                             <button type="submit" class="btn btn-primary">Lưu dữ Liệu</button>
                         </div>
                     </div>

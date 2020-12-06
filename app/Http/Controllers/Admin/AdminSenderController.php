@@ -8,11 +8,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\User;
 
-class UserController extends Controller
+class AdminSenderController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 1)->get();
+        $users = User::where('role', 0)->get();
 
         $viewData = [
             'users' => $users

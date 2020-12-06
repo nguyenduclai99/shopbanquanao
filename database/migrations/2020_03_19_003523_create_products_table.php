@@ -27,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer('pro_view')->default(0);
             $table->tinyInteger('pro_hot')->index()->default(0);
             $table->tinyInteger('pro_active')->index()->default(1);
-            // $table->integer('pro_pay')->default(0);
+            $table->integer('pro_pay')->default(0);
             $table->mediumText('pro_description')->nullable();
             $table->text('pro_content')->nullable();
             $table->tinyInteger('pro_type')->default(0)->nullable();

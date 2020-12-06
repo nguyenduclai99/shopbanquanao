@@ -33,7 +33,6 @@ class AdminRequestProduct extends FormRequest
             'pro_price'=> 'required',
             'pro_quantity'=> 'required',
             'pro_distributor_id'=> 'required',
-            'attribute'=> ' required',
             
         ];
     }

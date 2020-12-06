@@ -10,13 +10,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Tạo Mới Sản Phẩm</h1>
+                    <h1>Sửa Mới Sản Phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('admin.product.index')}}">Sản Phẩm</a></li>
-                        <li class="breadcrumb-item active">Tạo Mới</li>
+                        <li class="breadcrumb-item active">Sửa Mới</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form role="form" method="POST" action="{{route('admin.product.store')}}" enctype="multipart/form-data">
+        <form role="form" method="POST" action="" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-7">
@@ -34,74 +34,66 @@
                         <div class="card-header">
                             <h3 class="card-title">Thông tin cơ bản</h3>
                         </div>
-                        {{-- {{dd($errors)}} --}}
                         <div class="card-body">
                             <div class="form-group" {{$errors->first('pro_name') ? 'has-error' : ''}}>
                                 <label for="pro_name" class="control-label">Tên Sản phẩm: <span class="text-danger">(*)</span></label>
-                                <input type="text" class="form-control" name="pro_name" placeholder="Nhập tên sản phẩm" value="{{old('pro_name')}}"> @if ($errors->first('pro_name'))
+                                <input type="text" class="form-control" name="pro_name" placeholder="Nhập tên sản phẩm" value="{{$product->pro_name ?? old('pro_name')}}"> @if ($errors->first('pro_name'))
                                 <span class="text-danger">{{ $errors->first('pro_name') }}</span> @endif
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="pro_price">Giá sản phẩm <span class="text-danger">(*)</span></label>
-                                        <input type="number" name="pro_price" class="form-control" data-type="currency" value="{{old('pro_price')}}">
+                                        <input type="number" name="pro_price" class="form-control" data-type="currency" value="{{$product->pro_price ?? old('pro_price')}}">
                                     </div>
                                     @if ($errors->first('pro_price'))
-                                        <span class="text-danger">{{ $errors->first('pro_price') }}</span> 
-                                    @endif
+                                    <span class="text-danger">{{ $errors->first('pro_price') }}</span> @endif
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="pro_sale">Giảm giá</label>
-                                        <input type="number" name="pro_sale" value="0" class="form-control" data-type="currency" value="{{old('pro_sale')}}">
+                                        <input type="number" name="pro_sale" class="form-control" data-type="currency" value="{{$product->pro_sale ?? old('pro_sale')}}">
                                     </div>
-                                    @if ($errors->first('pro_sale'))
-                                    <span class="text-danger">{{ $errors->first('pro_sale') }}</span> @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="pro_quantity">Số Lượng <span class="text-danger">(*)</span></label>
-                                        <input type="number" name="pro_quantity" class="form-control" value="{{old('pro_quantity')}}">
+                                        <input type="number" name="pro_quantity" class="form-control" value="1">
                                     </div>
                                     @if ($errors->first('pro_quantity'))
                                         <span class="text-danger">{{ $errors->first('pro_quantity') }}</span> 
                                     @endif
                                 </div>
-                                @if(isset($distributor))
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="pro_distributor_id">Nhà phân phối<span class="text-danger">(*)</span></label>
                                         <select name="pro_distributor_id" class="form-control">
                                             <option value=""></option>
                                             @foreach ($distributor as $data)
-                                                <option value="{{$data->id}}">{{$data->d_name}}</option>
+                                            <option value="{{$data->id}}" {{$data->id == $product->pro_distributor_id ? "selected='seleted'" : ""}}>{{$data->d_name}}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->first('pro_distributor_id'))
-                                            <span class="text-danger">{{ $errors->first('pro_distributor_id') }}</span> 
-                                        @endif
                                     </div>
+                                    @if ($errors->first('pro_distributor_id'))
+                                    <span class="text-danger">{{ $errors->first('pro_distributor_id') }}</span> @endif
                                 </div>
-                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="pro_description" class="control-label">Mô tả:</label>
-                                <textarea style="height: 155px" type="text" class="form-control" name="pro_description" placeholder="Mô tả">{{old('pro_description')}}</textarea>
+                                <textarea style="height: 155px" type="text" class="form-control" id="pro_description" name="pro_description" placeholder="Mô tả">{{$product->pro_description ?? old('pro_description')}}</textarea>
                                 @if ($errors->first('pro_description'))
-                                    <span class="text-danger">{{ $errors->first('pro_description') }}</span> 
-                                @endif
+                                <span class="text-danger">{{ $errors->first('pro_description') }}</span> @endif
                             </div>
                             <div class="form-group">
-                                <label>Tags</label>
-                                <select class="select2 form-control" name="keywords[]" multiple="multiple" data-placeholder="Chọn tags sản phẩm" style="width: 100%;">
+                                <label>Multiple</label>
+                                <select class="select2 form-control" name="keywords[]" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" >
                                     @foreach ($keywords as $data)
-                                        <option value="{{$data->id}}">{{$data->k_name}}</option>
+                                        <option value="{{$data->id}}" {{ in_array($data->id,$keywordOld) ? "selected='selected'" : '' }}>{{$data->k_name}}</option>
                                     @endforeach
                                 </select>
-                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +108,7 @@
                                 <label for="exampleInputFile">File input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" name="pro_avatar" class="custom-file-input" id="imgInput" value = "{{old('pro_avatar')}}">
+                                        <input type="file" name="pro_avatar" class="custom-file-input" id="imgInput">
                                         <label class="custom-file-label" for="imgInput">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
@@ -125,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="">
-                                <img id="imgPreview" src="{{old('pro_avatar') ? " old('pro_avatar')" : "image/noimage.png" }}" height="290" class="Product Image">
+                            <img id="imgPreview" src="{{pare_url_file($product->pro_avatar)}}" height="290" class="Product Image">
                             </div>
                         </div>
                     </div>
@@ -147,7 +139,7 @@
                                         <select id="pro_category_id" name="pro_category_id" class="form-control" data-type="category">
                                             <option value=""></option>
                                             @foreach ($categories as $data)
-                                            <option value="{{$data->id}}">{{$data->c_name}}</option>
+                                            <option value="{{$data->id}}" {{$data->id == $product->pro_category_id ? "selected='seleted'" : ""}}>{{$data->c_name}}</option>
                                             @endforeach
                                         </select>
                                         @if ($errors->first('pro_category_id'))
@@ -155,10 +147,6 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row" id="add_attribute">
-                                
                             </div>
                         </div>
                     </div>
@@ -175,7 +163,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="">Content</label>
-                                <textarea id="ckeditor" name="pro_content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <textarea id="ckeditor" name="pro_content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$product->pro_content ?? old('pro_content')}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -186,7 +174,7 @@
                 <div class="col-12">
                     <div class="modal-footer">
                         <div class="mx-auto">
-                            <a type="button" class="btn btn-danger" href="{{route('admin.product.index')}}">Hủy</a>
+                            <a type="button" class="btn btn-danger" href="{{route('admin.seconhandproduct.index')}}">Hủy</a>
                             <button type="submit" class="btn btn-primary">Lưu dữ Liệu</button>
                         </div>
                     </div>
@@ -223,7 +211,6 @@
         readURL(this);
     });
 
-
     $(document).ready(function() {
         $.ajaxSetup({
             header:{
@@ -249,6 +236,7 @@
                 if(message.data){
                     let html = '';
                     let element ='';
+                    
                     if(type=='category'){
                         html = "";
                         element = '#add_attribute';
@@ -283,7 +271,5 @@
             });
         })
     });
-
 </script>
-
 @endsection

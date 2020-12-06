@@ -19,18 +19,18 @@ class AddForeignKeyTable extends Migration
             $table->foreign('pro_user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::table('attributes', function (Blueprint $table) {
-            $table->foreign('atb_type')->references('id')->on('group_attribute')->onDelete('cascade');
-        });
+        // Schema::table('attributes', function (Blueprint $table) {
+        //     $table->foreign('atb_type')->references('id')->on('group_attribute')->onDelete('cascade');
+        // });
 
-        Schema::table('group_attribute', function (Blueprint $table) {
-            $table->foreign('ga_category_id')->references('id')->on('categories')->onDelete('cascade');
-        });
+        // Schema::table('group_attribute', function (Blueprint $table) {
+        //     $table->foreign('ga_category_id')->references('id')->on('categories')->onDelete('cascade');
+        // });
 
-        Schema::table('product_attributes', function (Blueprint $table) {
-            $table->foreign('pa_product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('pa_attribute_id')->references('id')->on('attributes')->onDelete('cascade');
-        });
+        // Schema::table('product_attributes', function (Blueprint $table) {
+        //     $table->foreign('pa_product_id')->references('id')->on('products')->onDelete('cascade');
+        //     $table->foreign('pa_attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+        // });
 
         Schema::table('products_keywords', function (Blueprint $table) {
             $table->foreign('pk_product_id')->references('id')->on('products')->onDelete('cascade');

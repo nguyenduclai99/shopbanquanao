@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh Sách Nhà Phân Phối Hàng Mới</h1>
+                    <h1>Danh Sách Thành Viên</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('get.admin.home')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.distributor.index')}}">Nhà Phân Phối</a></li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.user.index')}}">Thành Viên</a></li>
                         <li class="breadcrumb-item active">Danh Sách</li>
                     </ol>
                 </div>
@@ -27,35 +27,37 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
+            <div class="card-header">
+                <a class="btn btn-primary btn-sm" href="{{route('admin.employee.create')}}">
+                    <i class="fas fa-plus"></i> Thêm Mới
+                </a>
+            </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a class="btn btn-primary btn-sm" href="{{route('admin.distributor.create')}}">
-                            <i class="fas fa-plus"></i> Thêm Mới
-                        </a>
                     </div>
                     <div class="card-body">
                         <table id="data_table" class="table table-bordered table-striped projects" style="width:100%">
                             <thead>
                                 <tr class="text-center">
                                     <th>#</th>
-                                    <th>Tên</th>
-                                    <th>Mô tả</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
                                     <th>Thời gian tạo</th>
-                                    <th>Hành động</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (isset($distributor))
-                                    @foreach ($distributor as $k =>$data)
+                                @if (isset($admins))
+                                    @foreach ($admins as $data)
                                     <tr>
-                                        <td>{{$k + 1}}</td>
-                                        <td>{{$data->d_name}}</td>
-                                        <td>{{$data->d_description}}</td>
+                                        <td>{{$data->id}}</td>
+                                        <td>{{$data->name}}</td>
+                                        <td>{{$data->email}}</td>
                                         <td>{{$data->created_at}}</td>
                                         <td>
-                                            <a href="{{route('admin.distributor.update',$data->id)}}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Sửa</a>
-                                            <a href="{{route('admin.distributor.delete',$data->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-pencil-alt"></i> Xóa</a>
+                                            {{-- <a href="{{route('admin.user.update',$data->id)}}" class="btn btn-info btn-sm editProduct"><i class="fas fa-pencil-alt"></i> Edit</a> --}}
+                                            <a href="{{route('admin.user.delete',$data->id)}}" class="btn btn-danger btn-sm deleteProduct"><i class="fas fa-pencil-alt"></i> Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -76,6 +78,6 @@
 <script>
     $(document).ready(function() {
         $('#data_table').DataTable();
-    } );
+    });
 </script>
 @endsection

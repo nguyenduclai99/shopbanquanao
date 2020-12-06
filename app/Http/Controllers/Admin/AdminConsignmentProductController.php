@@ -39,7 +39,7 @@ class AdminProductController extends Controller
         $products = $products->orderByDesc('id')->get();
         
         $categories = Category::all();
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::all();
 
         $viewData = [
             'products' => $products,
@@ -52,7 +52,7 @@ class AdminProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::all();
         $keywords = Keyword::all();
 
         return view('admin.product.create',compact('categories','keywords','distributor'));
@@ -105,7 +105,7 @@ class AdminProductController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
-        $distributor = Distributor::where('d_type', 0)->get();
+        $distributor = Distributor::all();
         $product = Product::findOrFail($id);
         $keywords = Keyword::all();
 
